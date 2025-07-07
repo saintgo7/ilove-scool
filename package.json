@@ -7,8 +7,20 @@
     "start": "node server.js",
     "dev": "node server.js"
   },
-  "dependencies": {},
-  "keywords": ["school", "education", "social-learning", "students"],
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express-session": "^1.18.1",
+    "formidable": "^3.5.4",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.1",
+    "sqlite3": "^5.1.7"
+  },
+  "keywords": [
+    "school",
+    "education",
+    "social-learning",
+    "students"
+  ],
   "author": "",
   "license": "MIT"
 }

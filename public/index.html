@@ -57,10 +57,10 @@
                     <div class="user-avatar">
                         <i class="fas fa-user"></i>
                     </div>
-                    <span class="user-name">John Doe</span>
+                    <span class="user-name" id="navUserName">Guest</span>
                     <div class="dropdown-menu">
                         <a href="/profile" data-i18n="profile">Profile</a>
-                        <a href="/login" data-i18n="logout">Logout</a>
+                        <a href="#" onclick="logout()" data-i18n="logout">Logout</a>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
         <aside class="sidebar-left">
             <div class="sidebar-item">
                 <i class="fas fa-user"></i>
-                <span>John Doe</span>
+                <span id="sidebarUserName">Guest</span>
             </div>
             <div class="sidebar-item">
                 <i class="fas fa-user-friends"></i>
@@ -107,16 +107,55 @@
                     </div>
                     <input type="text" placeholder="What's on your mind, John?" id="postInput">
                 </div>
+                
+                <!-- Media Preview -->
+                <div id="mediaPreview" style="display: none; margin: 12px 0; padding: 12px; background: #f8f9fa; border-radius: 8px;">
+                    <div id="previewContent"></div>
+                    <button onclick="removeMedia()" style="background: #e4e6ea; border: none; border-radius: 4px; padding: 4px 8px; margin-top: 8px;">
+                        <i class="fas fa-times"></i> Remove
+                    </button>
+                </div>
+                
+                <!-- Feeling Display -->
+                <div id="feelingDisplay" style="display: none; margin: 12px 0; padding: 8px 12px; background: #e3f2fd; border-radius: 16px;">
+                    <span id="feelingText"></span>
+                    <button onclick="removeFeeling()" style="background: none; border: none; margin-left: 8px; color: #666;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
                 <div class="post-creator-bottom">
-                    <button class="post-option">
+                    <input type="file" id="mediaInput" accept="image/*,video/*" style="display: none;" onchange="handleMediaUpload(event)">
+                    <button class="post-option" onclick="document.getElementById('mediaInput').click()">
                         <i class="fas fa-image"></i>
                         <span data-i18n="photoVideo">Photo/Video</span>
                     </button>
-                    <button class="post-option">
+                    <button class="post-option" onclick="showFeelingModal()">
                         <i class="fas fa-smile"></i>
                         <span data-i18n="feelingActivity">Feeling/Activity</span>
                     </button>
                     <button class="post-button" onclick="createPost()" data-i18n="post">Post</button>
+                </div>
+            </div>
+            
+            <!-- Feeling/Activity Modal -->
+            <div id="feelingModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; border-radius: 12px; padding: 24px; max-width: 400px; width: 90%;">
+                    <h3 style="margin: 0 0 16px 0;">How are you feeling?</h3>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                        <button class="feeling-btn" onclick="selectFeeling('😊 happy')">😊 Happy</button>
+                        <button class="feeling-btn" onclick="selectFeeling('😢 sad')">😢 Sad</button>
+                        <button class="feeling-btn" onclick="selectFeeling('😴 tired')">😴 Tired</button>
+                        <button class="feeling-btn" onclick="selectFeeling('🤔 thoughtful')">🤔 Thoughtful</button>
+                        <button class="feeling-btn" onclick="selectFeeling('😤 frustrated')">😤 Frustrated</button>
+                        <button class="feeling-btn" onclick="selectFeeling('🎉 excited')">🎉 Excited</button>
+                        <button class="feeling-btn" onclick="selectFeeling('📚 studying')">📚 Studying</button>
+                        <button class="feeling-btn" onclick="selectFeeling('💻 coding')">💻 Coding</button>
+                        <button class="feeling-btn" onclick="selectFeeling('☕ taking a break')">☕ Taking a break</button>
+                    </div>
+                    <div style="margin-top: 16px; text-align: right;">
+                        <button onclick="closeFeelingModal()" style="background: #e4e6ea; border: none; border-radius: 6px; padding: 8px 16px; margin-right: 8px;">Cancel</button>
+                    </div>
                 </div>
             </div>
 

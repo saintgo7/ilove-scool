@@ -324,6 +324,56 @@ body {
     color: #1877f2;
 }
 
+/* Feeling Modal Styles */
+.feeling-btn {
+    background: #f0f2f5;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 14px;
+    text-align: center;
+}
+
+.feeling-btn:hover {
+    background: #e4e6ea;
+}
+
+/* Media Preview Styles */
+#mediaPreview img {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+}
+
+#mediaPreview video {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+}
+
+/* Post Media Styles */
+.post-media {
+    margin: 12px 0;
+}
+
+.post-media img, .post-media video {
+    max-width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.post-feeling {
+    margin: 8px 0;
+    padding: 6px 12px;
+    background: #e3f2fd;
+    border-radius: 16px;
+    display: inline-block;
+    font-size: 14px;
+    color: #1565c0;
+}
+
 /* Contacts */
 .contacts h3 {
     color: #65676b;

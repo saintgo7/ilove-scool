@@ -179,6 +179,25 @@
                 <button type="submit" class="login-button" data-i18n="loginButton">Log In</button>
             </form>
             
+            <div style="text-align: center; margin: 16px 0; color: #65676b; font-size: 14px;">
+                Don't have an account? 
+                <a href="#" onclick="showRegisterForm()" style="color: #1877f2; text-decoration: none;">Sign up</a>
+            </div>
+            
+            <!-- Registration Form (hidden by default) -->
+            <form class="login-form" id="registerForm" style="display: none;" onsubmit="handleRegister(event)">
+                <input type="text" class="login-input" placeholder="Full Name" required>
+                <input type="text" class="login-input" placeholder="Username" required>
+                <input type="email" class="login-input" placeholder="Email address" required>
+                <input type="password" class="login-input" placeholder="Password" required>
+                <button type="submit" class="login-button">Sign Up</button>
+            </form>
+            
+            <div id="registerLink" style="text-align: center; margin: 16px 0; color: #65676b; font-size: 14px; display: none;">
+                Already have an account? 
+                <a href="#" onclick="showLoginForm()" style="color: #1877f2; text-decoration: none;">Log in</a>
+            </div>
+            
             <div class="social-logins">
                 <button class="social-button google-btn" onclick="socialLogin('google')">
                     <i class="fab fa-google"></i>
@@ -270,11 +289,85 @@
             return false;
         }
         
-        function handleLogin(event) {
+        async function handleLogin(event) {
             event.preventDefault();
-            // Simulate login
-            alert('Login successful! Redirecting to homepage...');
-            window.location.href = '/';
+            
+            const form = event.target;
+            const email = form.querySelector('[type="email"]').value;
+            const password = form.querySelector('[type="password"]').value;
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(`Welcome back, ${data.user.name}! Redirecting to homepage...`);
+                    localStorage.setItem('currentUser', JSON.stringify(data.user));
+                    window.location.href = '/';
+                } else {
+                    alert(`Login failed: ${data.error}`);
+                }
+            } catch (error) {
+                alert('Login failed: Network error. Please try again.');
+                console.error('Login error:', error);
+            }
+        }
+        
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const name = form.querySelector('[placeholder="Full Name"]').value;
+            const username = form.querySelector('[placeholder="Username"]').value;
+            const email = form.querySelector('[placeholder="Email address"]').value;
+            const password = form.querySelector('[placeholder="Password"]').value;
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, username, email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(`Welcome to I Love School, ${data.user.name}! Please log in to continue.`);
+                    showLoginForm();
+                    // Pre-fill email
+                    document.querySelector('.login-form [type="email"]').value = email;
+                } else {
+                    alert(`Registration failed: ${data.error}`);
+                }
+            } catch (error) {
+                alert('Registration failed: Network error. Please try again.');
+                console.error('Registration error:', error);
+            }
+        }
+        
+        function showRegisterForm() {
+            document.querySelector('.login-form').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'flex';
+            document.querySelector('[onclick="showRegisterForm()"]').parentElement.style.display = 'none';
+            document.getElementById('registerLink').style.display = 'block';
+            document.querySelector('.login-subtitle').textContent = 'Join our learning community';
+        }
+        
+        function showLoginForm() {
+            document.querySelector('.login-form').style.display = 'flex';
+            document.getElementById('registerForm').style.display = 'none';
+            document.querySelector('[onclick="showRegisterForm()"]').parentElement.style.display = 'block';
+            document.getElementById('registerLink').style.display = 'none';
+            document.querySelector('.login-subtitle').textContent = 'Connect with classmates and share your learning journey';
         }
         
         function socialLogin(provider) {
