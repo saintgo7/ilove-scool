@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends - I Love School</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/js/i18n.js"></script>
+    <style>
+        .friends-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .friends-header {
+            margin-bottom: 32px;
+        }
+        
+        .friends-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .friends-section {
+            margin-bottom: 32px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #1c1e21;
+        }
+        
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+        
+        .friend-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .friend-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .friend-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: #1877f2;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+        }
+        
+        .friend-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1c1e21;
+        }
+        
+        .friend-info {
+            font-size: 13px;
+            color: #65676b;
+            margin-bottom: 16px;
+        }
+        
+        .friend-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .friend-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .btn-primary {
+            background-color: #1877f2;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #166fe5;
+        }
+        
+        .btn-secondary {
+            background-color: #e4e6ea;
+            color: #1c1e21;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #d8dadf;
+        }
+        
+        .btn-success {
+            background-color: #42b883;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background-color: #369970;
+        }
+        
+        .btn-danger {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 48px 16px;
+            color: #65676b;
+        }
+        
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            color: #dadde1;
+        }
+        
+        @media (max-width: 768px) {
+            .friends-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .friend-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <span class="logo-text">I Love School</span>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search I Love School">
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+                <a href="/friends" class="nav-link active"><i class="fas fa-user-friends"></i></a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i></a>
+            </div>
+            
+            <div class="nav-right">
+                <!-- Language Toggle -->
+                <div class="language-toggle">
+                    <button class="lang-btn" onclick="toggleLanguageMenu()">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-menu" id="languageMenu">
+                        <a href="#" onclick="changeLanguage('en')" class="lang-option">
+                            <span class="flag">🇺🇸</span>
+                            <span>English</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('ko')" class="lang-option">
+                            <span class="flag">🇰🇷</span>
+                            <span>한국어</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('zh')" class="lang-option">
+                            <span class="flag">🇨🇳</span>
+                            <span>中文</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="user-name">John Doe</span>
+                    <div class="dropdown-menu">
+                        <a href="/profile" data-i18n="profile">Profile</a>
+                        <a href="/login" data-i18n="logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container" style="grid-template-columns: 1fr; padding: 80px 16px 16px;">
+        <div class="friends-container">
+            <div class="friends-header">
+                <h1 class="friends-title" data-i18n="friendsTitle">Friends</h1>
+            </div>
+
+            <!-- Friend Requests -->
+            <div class="friends-section">
+                <h2 class="section-title">Friend Requests (3)</h2>
+                <div class="friends-grid">
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Alice Johnson</div>
+                        <div class="friend-info">2 mutual friends</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-primary" onclick="acceptFriend('alice')">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                            <button class="friend-btn btn-secondary" onclick="declineFriend('alice')">
+                                <i class="fas fa-times"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Bob Wilson</div>
+                        <div class="friend-info">5 mutual friends</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-primary" onclick="acceptFriend('bob')">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                            <button class="friend-btn btn-secondary" onclick="declineFriend('bob')">
+                                <i class="fas fa-times"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Carol Davis</div>
+                        <div class="friend-info">1 mutual friend</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-primary" onclick="acceptFriend('carol')">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                            <button class="friend-btn btn-secondary" onclick="declineFriend('carol')">
+                                <i class="fas fa-times"></i> Decline
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Friends -->
+            <div class="friends-section">
+                <h2 class="section-title">All Friends (245)</h2>
+                <div class="friends-grid">
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Jane Smith</div>
+                        <div class="friend-info">Friends since 2021</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-secondary" onclick="unfriend('jane')">
+                                <i class="fas fa-user-minus"></i> Unfriend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Mike Johnson</div>
+                        <div class="friend-info">Friends since 2020</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-secondary" onclick="unfriend('mike')">
+                                <i class="fas fa-user-minus"></i> Unfriend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Sarah Brown</div>
+                        <div class="friend-info">Friends since 2022</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-secondary" onclick="unfriend('sarah')">
+                                <i class="fas fa-user-minus"></i> Unfriend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">David Lee</div>
+                        <div class="friend-info">Friends since 2019</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-secondary" onclick="unfriend('david')">
+                                <i class="fas fa-user-minus"></i> Unfriend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Emma Wilson</div>
+                        <div class="friend-info">Friends since 2023</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-secondary" onclick="unfriend('emma')">
+                                <i class="fas fa-user-minus"></i> Unfriend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Tom Garcia</div>
+                        <div class="friend-info">Friends since 2021</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-secondary" onclick="unfriend('tom')">
+                                <i class="fas fa-user-minus"></i> Unfriend
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- People You May Know -->
+            <div class="friends-section">
+                <h2 class="section-title">People You May Know</h2>
+                <div class="friends-grid">
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Lisa Anderson</div>
+                        <div class="friend-info">3 mutual friends</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-primary" onclick="addFriend('lisa')">
+                                <i class="fas fa-user-plus"></i> Add Friend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Kevin Park</div>
+                        <div class="friend-info">7 mutual friends</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-primary" onclick="addFriend('kevin')">
+                                <i class="fas fa-user-plus"></i> Add Friend
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card">
+                        <div class="friend-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-name">Rachel Kim</div>
+                        <div class="friend-info">2 mutual friends</div>
+                        <div class="friend-actions">
+                            <button class="friend-btn btn-primary" onclick="addFriend('rachel')">
+                                <i class="fas fa-user-plus"></i> Add Friend
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize language support for friends page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.i18n) {
+                window.i18n.updatePageText();
+                updateLanguageDisplay();
+            }
+        });
+        
+        function updateLanguageDisplay() {
+            const currentLang = window.i18n.getCurrentLanguage();
+            const langMap = { en: 'EN', ko: '한국어', zh: '中文' };
+            document.getElementById('currentLang').textContent = langMap[currentLang] || 'EN';
+            
+            // Update active language option
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`[onclick="changeLanguage('${currentLang}')"]`)?.classList.add('active');
+        }
+        
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('languageMenu');
+            const btn = document.querySelector('.lang-btn');
+            
+            menu.classList.toggle('show');
+            btn.classList.toggle('active');
+            
+            // Prevent event bubbling
+            event.stopPropagation();
+        }
+        
+        function changeLanguage(lang) {
+            // Change language
+            window.i18n.setLanguage(lang);
+            updateLanguageDisplay();
+            
+            // Close menu
+            document.getElementById('languageMenu').classList.remove('show');
+            document.querySelector('.lang-btn').classList.remove('active');
+            
+            // Prevent navigation
+            event.preventDefault();
+            return false;
+        }
+        
+        // Close language menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-toggle')) {
+                document.getElementById('languageMenu').classList.remove('show');
+                document.querySelector('.lang-btn').classList.remove('active');
+            }
+        });
+        
+        function acceptFriend(name) {
+            alert(`Accepted friend request from ${name.charAt(0).toUpperCase() + name.slice(1)}!`);
+            // In a real app, this would make an API call
+            event.target.closest('.friend-card').style.display = 'none';
+        }
+
+        function declineFriend(name) {
+            alert(`Declined friend request from ${name.charAt(0).toUpperCase() + name.slice(1)}.`);
+            event.target.closest('.friend-card').style.display = 'none';
+        }
+
+        function addFriend(name) {
+            alert(`Sent friend request to ${name.charAt(0).toUpperCase() + name.slice(1)}!`);
+            const button = event.target;
+            button.textContent = 'Request Sent';
+            button.disabled = true;
+            button.style.opacity = '0.6';
+        }
+
+        function unfriend(name) {
+            if (confirm(`Are you sure you want to unfriend ${name.charAt(0).toUpperCase() + name.slice(1)}?`)) {
+                alert(`Unfriended ${name.charAt(0).toUpperCase() + name.slice(1)}.`);
+                event.target.closest('.friend-card').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

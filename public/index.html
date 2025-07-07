@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love School</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/js/i18n.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <span class="logo-text">I Love School</span>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search I Love School">
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <a href="/" class="nav-link active"><i class="fas fa-home"></i></a>
+                <a href="/friends" class="nav-link"><i class="fas fa-user-friends"></i></a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i></a>
+            </div>
+            
+            <div class="nav-right">
+                <!-- Language Toggle -->
+                <div class="language-toggle">
+                    <button class="lang-btn" onclick="toggleLanguageMenu()">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-menu" id="languageMenu">
+                        <a href="#" onclick="changeLanguage('en')" class="lang-option">
+                            <span class="flag">🇺🇸</span>
+                            <span>English</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('ko')" class="lang-option">
+                            <span class="flag">🇰🇷</span>
+                            <span>한국어</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('zh')" class="lang-option">
+                            <span class="flag">🇨🇳</span>
+                            <span>中文</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="user-name">John Doe</span>
+                    <div class="dropdown-menu">
+                        <a href="/profile" data-i18n="profile">Profile</a>
+                        <a href="/login" data-i18n="logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar-left">
+            <div class="sidebar-item">
+                <i class="fas fa-user"></i>
+                <span>John Doe</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-user-friends"></i>
+                <span data-i18n="classmates">Classmates</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-users"></i>
+                <span data-i18n="studyGroups">Study Groups</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-book"></i>
+                <span data-i18n="courses">Courses</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-calendar"></i>
+                <span data-i18n="schedule">Schedule</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-trophy"></i>
+                <span data-i18n="achievements">Achievements</span>
+            </div>
+        </aside>
+
+        <!-- Feed -->
+        <main class="feed">
+            <!-- Post Creator -->
+            <div class="post-creator">
+                <div class="post-creator-top">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <input type="text" placeholder="What's on your mind, John?" id="postInput">
+                </div>
+                <div class="post-creator-bottom">
+                    <button class="post-option">
+                        <i class="fas fa-image"></i>
+                        <span data-i18n="photoVideo">Photo/Video</span>
+                    </button>
+                    <button class="post-option">
+                        <i class="fas fa-smile"></i>
+                        <span data-i18n="feelingActivity">Feeling/Activity</span>
+                    </button>
+                    <button class="post-button" onclick="createPost()" data-i18n="post">Post</button>
+                </div>
+            </div>
+
+            <!-- Posts Container -->
+            <div id="postsContainer">
+                <!-- Posts will be loaded here -->
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="sidebar-right">
+            <div class="contacts">
+                <h3 data-i18n="studyBuddies">Study Buddies</h3>
+                <div class="contact-item">
+                    <div class="user-avatar small">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Jane Smith</span>
+                    <div class="online-status"></div>
+                </div>
+                <div class="contact-item">
+                    <div class="user-avatar small">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Mike Johnson</span>
+                    <div class="online-status offline"></div>
+                </div>
+            </div>
+            
+            <div class="contacts" style="margin-top: 24px;">
+                <h3 data-i18n="quickStudy">Quick Study</h3>
+                <div class="study-item">
+                    <i class="fas fa-calculator" style="color: #3498db;"></i>
+                    <span data-i18n="mathQuiz">Math Quiz</span>
+                </div>
+                <div class="study-item">
+                    <i class="fas fa-flask" style="color: #e74c3c;"></i>
+                    <span data-i18n="chemistryLab">Chemistry Lab</span>
+                </div>
+                <div class="study-item">
+                    <i class="fas fa-globe" style="color: #2ecc71;"></i>
+                    <span data-i18n="historyNotes">History Notes</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

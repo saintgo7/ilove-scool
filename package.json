@@ -1,0 +1,14 @@
+{
+  "name": "i_love_school",
+  "version": "1.0.0",
+  "description": "I Love School - Educational Social Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {},
+  "keywords": ["school", "education", "social-learning", "students"],
+  "author": "",
+  "license": "MIT"
+}

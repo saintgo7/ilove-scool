@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Doe - I Love School</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="/js/i18n.js"></script>
+    <style>
+        .profile-header {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        
+        .cover-photo {
+            height: 320px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .profile-info {
+            padding: 24px;
+            position: relative;
+        }
+        
+        .profile-picture {
+            width: 160px;
+            height: 160px;
+            background-color: #1877f2;
+            border-radius: 50%;
+            border: 4px solid white;
+            position: absolute;
+            top: -80px;
+            left: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+        
+        .profile-actions {
+            position: absolute;
+            top: 16px;
+            right: 24px;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .profile-details {
+            margin-left: 200px;
+            margin-top: 16px;
+        }
+        
+        .profile-name {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .profile-stats {
+            color: #65676b;
+            margin-bottom: 16px;
+        }
+        
+        .profile-content {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .profile-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: #65676b;
+        }
+        
+        .friends-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .friend-item {
+            aspect-ratio: 1;
+            background-color: #f0f2f5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #65676b;
+            font-size: 24px;
+        }
+        
+        .action-button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .action-button:hover {
+            background-color: #166fe5;
+        }
+        
+        .action-button.secondary {
+            background-color: #e4e6ea;
+            color: #1c1e21;
+        }
+        
+        .action-button.secondary:hover {
+            background-color: #d8dadf;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-details {
+                margin-left: 0;
+                text-align: center;
+            }
+            
+            .profile-picture {
+                position: relative;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap logo-icon"></i>
+                    <span class="logo-text">I Love School</span>
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search I Love School">
+                </div>
+            </div>
+            
+            <div class="nav-center">
+                <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+                <a href="/friends" class="nav-link"><i class="fas fa-user-friends"></i></a>
+                <a href="#" class="nav-link"><i class="fas fa-bell"></i></a>
+            </div>
+            
+            <div class="nav-right">
+                <!-- Language Toggle -->
+                <div class="language-toggle">
+                    <button class="lang-btn" onclick="toggleLanguageMenu()">
+                        <i class="fas fa-globe"></i>
+                        <span id="currentLang">EN</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="language-menu" id="languageMenu">
+                        <a href="#" onclick="changeLanguage('en')" class="lang-option">
+                            <span class="flag">🇺🇸</span>
+                            <span>English</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('ko')" class="lang-option">
+                            <span class="flag">🇰🇷</span>
+                            <span>한국어</span>
+                        </a>
+                        <a href="#" onclick="changeLanguage('zh')" class="lang-option">
+                            <span class="flag">🇨🇳</span>
+                            <span>中文</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="user-menu">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="user-name">John Doe</span>
+                    <div class="dropdown-menu">
+                        <a href="/profile" data-i18n="profile">Profile</a>
+                        <a href="/login" data-i18n="logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container" style="grid-template-columns: 1fr; max-width: 1000px; padding: 80px 16px 16px;">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="cover-photo"></div>
+            <div class="profile-info">
+                <div class="profile-picture">
+                    <i class="fas fa-user"></i>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="action-button secondary">
+                        <i class="fas fa-camera"></i>
+                        Edit Cover Photo
+                    </button>
+                    <button class="action-button">
+                        <i class="fas fa-plus"></i>
+                        Add to Story
+                    </button>
+                </div>
+                
+                <div class="profile-details">
+                    <h1 class="profile-name">John Doe</h1>
+                    <div class="profile-stats">
+                        <span>245 friends</span> • <span>12 posts</span>
+                    </div>
+                    <p style="color: #65676b; margin-bottom: 16px;">
+                        Software Developer passionate about building amazing web applications. 
+                        Love to code, travel, and connect with people.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Content -->
+        <div class="profile-content">
+            <!-- Left Sidebar -->
+            <div class="profile-sidebar">
+                <!-- About -->
+                <div class="profile-card">
+                    <h2 class="card-title">About</h2>
+                    <div class="info-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Works at <strong>Tech Company</strong></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Studied at <strong>University of Technology</strong></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Lives in <strong>Seoul, South Korea</strong></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-heart"></i>
+                        <span><strong>Single</strong></span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Joined in <strong>January 2020</strong></span>
+                    </div>
+                </div>
+
+                <!-- Friends -->
+                <div class="profile-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h2 class="card-title" style="margin: 0;">Friends</h2>
+                        <a href="/friends" style="color: #1877f2; text-decoration: none;">See all</a>
+                    </div>
+                    <p style="color: #65676b; margin-bottom: 16px;">245 friends</p>
+                    <div class="friends-grid">
+                        <div class="friend-item">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-item">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-item">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-item">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-item">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="friend-item">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Feed -->
+            <div class="feed">
+                <!-- Post Creator -->
+                <div class="post-creator">
+                    <div class="post-creator-top">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <input type="text" placeholder="What's on your mind, John?" id="postInput">
+                    </div>
+                    <div class="post-creator-bottom">
+                        <button class="post-option">
+                            <i class="fas fa-image"></i>
+                            Photo/Video
+                        </button>
+                        <button class="post-option">
+                            <i class="fas fa-smile"></i>
+                            Feeling/Activity
+                        </button>
+                        <button class="post-button" onclick="createPost()">Post</button>
+                    </div>
+                </div>
+
+                <!-- Sample Posts -->
+                <div class="post">
+                    <div class="post-header">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="post-author">John Doe</div>
+                            <div class="post-time">2 hours ago</div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-content">
+                        Just finished working on an amazing new project! 🚀 
+                        Can't wait to share it with everyone. 
+                        Building cool stuff with the latest technologies is so rewarding!
+                    </div>
+                    
+                    <div class="post-actions">
+                        <button class="post-action">
+                            <i class="fas fa-thumbs-up"></i>
+                            Like
+                        </button>
+                        <button class="post-action">
+                            <i class="fas fa-comment"></i>
+                            Comment
+                        </button>
+                        <button class="post-action">
+                            <i class="fas fa-share"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+
+                <div class="post">
+                    <div class="post-header">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div>
+                            <div class="post-author">John Doe</div>
+                            <div class="post-time">1 day ago</div>
+                        </div>
+                    </div>
+                    
+                    <div class="post-content">
+                        Beautiful sunset today! 🌅 Sometimes it's important to take a break 
+                        from coding and enjoy the simple things in life.
+                    </div>
+                    
+                    <div class="post-actions">
+                        <button class="post-action liked">
+                            <i class="fas fa-thumbs-up"></i>
+                            Like
+                        </button>
+                        <button class="post-action">
+                            <i class="fas fa-comment"></i>
+                            Comment
+                        </button>
+                        <button class="post-action">
+                            <i class="fas fa-share"></i>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script>
+        // Initialize language support for profile page
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.i18n) {
+                window.i18n.updatePageText();
+                updateLanguageDisplay();
+            }
+        });
+        
+        function updateLanguageDisplay() {
+            const currentLang = window.i18n.getCurrentLanguage();
+            const langMap = { en: 'EN', ko: '한국어', zh: '中文' };
+            document.getElementById('currentLang').textContent = langMap[currentLang] || 'EN';
+            
+            // Update active language option
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`[onclick="changeLanguage('${currentLang}')"]`)?.classList.add('active');
+        }
+        
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('languageMenu');
+            const btn = document.querySelector('.lang-btn');
+            
+            menu.classList.toggle('show');
+            btn.classList.toggle('active');
+            
+            // Prevent event bubbling
+            event.stopPropagation();
+        }
+        
+        function changeLanguage(lang) {
+            // Change language
+            window.i18n.setLanguage(lang);
+            updateLanguageDisplay();
+            
+            // Close menu
+            document.getElementById('languageMenu').classList.remove('show');
+            document.querySelector('.lang-btn').classList.remove('active');
+            
+            // Prevent navigation
+            event.preventDefault();
+            return false;
+        }
+        
+        // Close language menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-toggle')) {
+                document.getElementById('languageMenu').classList.remove('show');
+                document.querySelector('.lang-btn').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

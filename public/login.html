@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Love School - Login</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/i18n.js"></script>
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .login-title {
+            background: linear-gradient(135deg, #1877f2 0%, #e74c3c 50%, #f39c12 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        
+        .login-subtitle {
+            color: #65676b;
+            font-size: 16px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .login-input {
+            padding: 14px 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        
+        .login-input:focus {
+            border-color: #1877f2;
+        }
+        
+        .login-button {
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .login-button:hover {
+            background-color: #166fe5;
+        }
+        
+        .social-logins {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #dadde1;
+        }
+        
+        .social-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+        
+        .social-button:hover {
+            opacity: 0.9;
+        }
+        
+        .google-btn {
+            background-color: #db4437;
+            color: white;
+        }
+        
+        .facebook-btn {
+            background-color: #4267b2;
+            color: white;
+        }
+        
+        .apple-btn {
+            background-color: #000;
+            color: white;
+        }
+        
+        .naver-btn {
+            background-color: #03c75a;
+            color: white;
+        }
+        
+        .kakao-btn {
+            background-color: #fee500;
+            color: #000;
+        }
+        
+        .demo-note {
+            margin-top: 16px;
+            text-align: center;
+            color: #65676b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Language Toggle -->
+        <div style="position: absolute; top: 20px; right: 20px;">
+            <div class="language-toggle">
+                <button class="lang-btn" onclick="toggleLanguageMenu()">
+                    <i class="fas fa-globe"></i>
+                    <span id="currentLang">EN</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="language-menu" id="languageMenu">
+                    <a href="#" onclick="changeLanguage('en')" class="lang-option">
+                        <span class="flag">🇺🇸</span>
+                        <span>English</span>
+                    </a>
+                    <a href="#" onclick="changeLanguage('ko')" class="lang-option">
+                        <span class="flag">🇰🇷</span>
+                        <span>한국어</span>
+                    </a>
+                    <a href="#" onclick="changeLanguage('zh')" class="lang-option">
+                        <span class="flag">🇨🇳</span>
+                        <span>中文</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-box">
+            <div class="login-header">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px;">
+                    <i class="fas fa-graduation-cap" style="font-size: 48px; color: #e74c3c;"></i>
+                    <h1 class="login-title" data-i18n="loginTitle">I Love School</h1>
+                </div>
+                <p class="login-subtitle" data-i18n="loginSubtitle">Connect with classmates and share your learning journey</p>
+            </div>
+            
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <input type="email" class="login-input" data-i18n="emailPlaceholder" placeholder="Email address" required>
+                <input type="password" class="login-input" data-i18n="passwordPlaceholder" placeholder="Password" required>
+                <button type="submit" class="login-button" data-i18n="loginButton">Log In</button>
+            </form>
+            
+            <div class="social-logins">
+                <button class="social-button google-btn" onclick="socialLogin('google')">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+                
+                <button class="social-button facebook-btn" onclick="socialLogin('facebook')">
+                    <i class="fab fa-facebook-f"></i>
+                    Continue with Facebook
+                </button>
+                
+                <button class="social-button apple-btn" onclick="socialLogin('apple')">
+                    <i class="fab fa-apple"></i>
+                    Continue with Apple
+                </button>
+                
+                <button class="social-button naver-btn" onclick="socialLogin('naver')">
+                    <i class="fab fa-n"></i>
+                    Continue with Naver
+                </button>
+                
+                <button class="social-button kakao-btn" onclick="socialLogin('kakao')">
+                    <i class="fab fa-kickstarter"></i>
+                    Continue with Kakao
+                </button>
+            </div>
+            
+            <div class="demo-note">
+                <p data-i18n="demoNote">This is a demo application. Click any login button to proceed.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize language support
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.i18n) {
+                window.i18n.updatePageText();
+                updateLanguageDisplay();
+                
+                // Update input placeholders
+                const emailInput = document.querySelector('[data-i18n="emailPlaceholder"]');
+                const passwordInput = document.querySelector('[data-i18n="passwordPlaceholder"]');
+                if (emailInput) emailInput.placeholder = window.i18n.t('emailPlaceholder');
+                if (passwordInput) passwordInput.placeholder = window.i18n.t('passwordPlaceholder');
+            }
+        });
+        
+        function updateLanguageDisplay() {
+            const currentLang = window.i18n.getCurrentLanguage();
+            const langMap = { en: 'EN', ko: '한국어', zh: '中文' };
+            document.getElementById('currentLang').textContent = langMap[currentLang] || 'EN';
+            
+            // Update active language option
+            document.querySelectorAll('.lang-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`[onclick="changeLanguage('${currentLang}')"]`)?.classList.add('active');
+        }
+        
+        function toggleLanguageMenu() {
+            const menu = document.getElementById('languageMenu');
+            const btn = document.querySelector('.lang-btn');
+            
+            menu.classList.toggle('show');
+            btn.classList.toggle('active');
+            
+            // Prevent event bubbling
+            event.stopPropagation();
+        }
+        
+        function changeLanguage(lang) {
+            // Change language
+            window.i18n.setLanguage(lang);
+            updateLanguageDisplay();
+            
+            // Update input placeholders
+            const emailInput = document.querySelector('[data-i18n="emailPlaceholder"]');
+            const passwordInput = document.querySelector('[data-i18n="passwordPlaceholder"]');
+            if (emailInput) emailInput.placeholder = window.i18n.t('emailPlaceholder');
+            if (passwordInput) passwordInput.placeholder = window.i18n.t('passwordPlaceholder');
+            
+            // Close menu
+            document.getElementById('languageMenu').classList.remove('show');
+            document.querySelector('.lang-btn').classList.remove('active');
+            
+            // Prevent navigation
+            event.preventDefault();
+            return false;
+        }
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            // Simulate login
+            alert('Login successful! Redirecting to homepage...');
+            window.location.href = '/';
+        }
+        
+        function socialLogin(provider) {
+            alert(`${provider.charAt(0).toUpperCase() + provider.slice(1)} login simulated! Redirecting to homepage...`);
+            window.location.href = '/';
+        }
+        
+        // Close language menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.language-toggle')) {
+                document.getElementById('languageMenu').classList.remove('show');
+                document.querySelector('.lang-btn').classList.remove('active');
+            }
+        });
+    </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html>
